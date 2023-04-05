@@ -31,6 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # local
+    'courses',
+    # !important
+    # If you see the Logged out page of the Django administration site instead of your own Logged out page, check the INSTALLED_APPS setting of your project and make sure that django. contrib.admin comes a#er the  application that provides login and logout templates.
+    #
+    # Both applications contain logged-out templates located in the same relative path. The Django template loader will go through the diﬀerent applications in the INSTALLED_APPS list and use the ﬁrst template it ﬁnds.
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,8 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # local
-    'courses',
+
 
 ]
 
