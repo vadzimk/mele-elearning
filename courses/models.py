@@ -3,6 +3,8 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
+from courses.fields import OrderField
+
 
 class Subject(models.Model):
     title = models.CharField(max_length=200)
@@ -16,6 +18,9 @@ class Subject(models.Model):
 
 
 class Course(models.Model):
+    class Meta:
+        ordering = ['-created']
+
     owner = models.ForeignKey(User,
                               related_name='courses_created',
                               on_delete=models.CASCADE)
@@ -27,25 +32,29 @@ class Course(models.Model):
     overview = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        ordering = ['-created']
-
     def __str__(self):
         return self.title
 
 
 class Module(models.Model):
+    class Meta:
+        ordering = ['order']
+
     course = models.ForeignKey(Course,
                                related_name='models',
                                on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    order = OrderField(blank=True, for_fields=['course'], default=0)  # ordering calc with respect to course (sequence number)
 
     def __str__(self):
-        return self.title
+        return f'{self.order}. {self.title}'
 
 
 class Content(models.Model):
+    class Meta:
+        ordering = ['order']
+
     module = models.ForeignKey(Module,
                                related_name='contents',
                                on_delete=models.CASCADE)
@@ -54,6 +63,7 @@ class Content(models.Model):
                                      limit_choices_to={'model__in': ('text', 'video', 'image', 'file')})
     object_id = models.PositiveIntegerField()  # target object id
     item = GenericForeignKey('content_type', 'object_id')  # target as relationship
+    order = OrderField(blank=True, for_fields=['module'], default=1)  # sequence number in module
 
 
 class ItemBase(models.Model):
