@@ -90,5 +90,9 @@ class File(ItemBase):
         upload_to='images')  # https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.FileField.upload_to
 
 
+class Image(ItemBase):
+    file = models.FileField(upload_to='images')
+
+
 class Video(ItemBase):
     url = models.URLField()
