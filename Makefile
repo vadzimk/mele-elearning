@@ -4,10 +4,10 @@ server.dev:
 server.dev.plus:
 	./manage.py runserver_plus --cert-file cert.crt
 
-makemigrations:
+migraton.makemigrations:
 	./manage.py makemigrations
 
-migrate:
+migration.migrate:
 	./manage.py migrate
 
 compose.up:

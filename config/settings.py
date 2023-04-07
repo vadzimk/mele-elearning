@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     #
     # Both applications contain logged-out templates located in the same relative path. The Django template loader will go through the diﬀerent applications in the INSTALLED_APPS list and use the ﬁrst template it ﬁnds.
 
+    'students',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
