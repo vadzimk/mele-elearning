@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # 3d party
     'embed_video',
+    'debug_toolbar',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  # add debug toolbar
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -147,6 +149,11 @@ MEDIA_ROOT = BASE_DIR / 'media'  # local path for media files for development
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': os.getenv('MEMCACHE_HOST') + ':' + os.getenv('MEMCACHE_PORT')
+        'LOCATION': os.getenv('MEMCACHE_HOST') + ':' + os.getenv('MEMCACHE_PORT'),
+        # 'TIMEOUT',
     }
 }
+
+INTERNAL_IPS = [
+    '127.0.0.1',  # django debug toolbar will only display if your ip address matches this entry
+]

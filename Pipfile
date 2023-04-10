@@ -9,6 +9,7 @@ pillow = "*"
 django-embed-video = "*"
 pymemcache = "*"
 python-dotenv = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 
