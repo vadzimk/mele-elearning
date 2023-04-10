@@ -178,12 +178,24 @@ class CourseListView(TemplateResponseMixin, View):
                 total_courses=Count('courses')
             )
             cache.set('all_subjects', subjects)
-        courses = Course.objects.annotate(
+
+        # returns a queryset that includes all the Course objects in the database, with an added attribute total_modules for each Course.
+        all_courses = Course.objects.annotate(
             total_modules=Count('modules')
         )
+
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
-            courses = courses.filter(subject=subject)
+            key = f'subject_{subject.id}_courses'  # use key with id for dynamic data
+            courses = cache.get(key) # this is the result of the queryset (not the queryset itself)
+            if not courses:
+                courses = all_courses.filter(subject=subject)
+                cache.set(key, courses)
+        else:
+            courses = cache.get('all_courses')
+            if not courses:
+                courses = all_courses
+                cache.set('all_courses', courses)
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
                                         'courses': courses})
