@@ -162,7 +162,7 @@ class ModuleContentListView(TemplateResponseMixin, View):
     def get(self, request, module_id):
         module = get_object_or_404(Module,
                                    id=module_id,
-                                   courses__owner=request.user)
+                                   course__owner=request.user)
         return self.render_to_response({'module': module})
 
 
