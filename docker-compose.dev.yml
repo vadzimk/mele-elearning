@@ -1,0 +1,9 @@
+version: "3.5"
+
+services:
+  cache:
+    image: memcached
+    container_name: memcached_django_elearning
+    ports:
+      - "11211:11211"
+    command: ["-m", "64m"]
