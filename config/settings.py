@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     # 3d party
     'redisboard',  # needs to pass its migrations to db after install and in admin panel add redis server redis://localhost:6380/0  where 0 is the database number for redis
 
+    'rest_framework',  # django rest framework
+
+
 
 
 ]
@@ -173,3 +176,9 @@ CACHES = {
 INTERNAL_IPS = [
     '127.0.0.1',  # django debug toolbar will only display if your ip address matches this entry
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',  # read only access for anonymous users
+    ]
+}
