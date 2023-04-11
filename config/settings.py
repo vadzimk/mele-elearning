@@ -155,10 +155,14 @@ MEDIA_ROOT = BASE_DIR / 'media'  # local path for media files for development
 
 
 CACHES = {
+    # 'default': {
+    #     'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+    #     'LOCATION': os.getenv('MEMCACHE_HOST') + ':' + os.getenv('MEMCACHE_PORT'),
+    #     # 'TIMEOUT',
+    # }
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': os.getenv('MEMCACHE_HOST') + ':' + os.getenv('MEMCACHE_PORT'),
-        # 'TIMEOUT',
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://' + os.getenv('REDIS_HOST') + ':' + os.getenv('REDIS_PORT'),
     }
 }
 

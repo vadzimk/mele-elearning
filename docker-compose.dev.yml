@@ -1,9 +1,17 @@
 version: "3.5"
 
 services:
-  cache:
+  cache-memcached:
     image: memcached
-    container_name: memcached_django_elearning
+    container_name: memcached-django-elearning
     ports:
       - "11211:11211"
     command: ["-m", "64m"]
+
+  cache-redis:
+    image: redis
+    container_name: redis-django-elearning
+    ports:
+      - "6380:6379" # host:guest
+
+
