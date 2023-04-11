@@ -11,7 +11,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 
 class ModuleSerializer(serializers.ModelSerializer):
-    class Meat:
+    class Meta:
         model = Module
         fields = ['order', 'title', 'description']
 
