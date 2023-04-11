@@ -47,12 +47,16 @@ INSTALLED_APPS = [
     'embed_video',
     'debug_toolbar',
 
+    # default
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3d party
+    'redisboard',  # needs to pass its migrations to db after install and in admin panel add redis server redis://localhost:6380/0  where 0 is the database number for redis
 
 
 

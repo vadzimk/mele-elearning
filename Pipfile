@@ -11,6 +11,8 @@ pymemcache = "*"
 python-dotenv = "*"
 django-debug-toolbar = "*"
 redis = "*"
+django-redisboard = "*"
+attrs = "*"
 
 [dev-packages]
 
