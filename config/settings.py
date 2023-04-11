@@ -63,9 +63,9 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',  # add debug toolbar
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',  # per site cache in the response phase is invoked after the CommonMiddleware
+    # 'django.middleware.cache.UpdateCacheMiddleware',  # per site cache in the response phase is invoked after the CommonMiddleware
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',  # per site cache (needs data from Csrf in the response phase)
+    # 'django.middleware.cache.FetchFromCacheMiddleware',  # per site cache (needs data from Csrf in the response phase)
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
