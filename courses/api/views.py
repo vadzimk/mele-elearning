@@ -8,6 +8,8 @@ from rest_framework.views import APIView
 
 from courses.api.serializers import SubjectSerializer, CourseSerializer
 from courses.models import Subject, Course
+from .permissions import IsEnrolled
+from .serializers import CourseWithContentsSerializer
 
 
 class SubjectListView(generics.ListAPIView):
@@ -36,11 +38,18 @@ class CourseViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
-    @action(detal=True,  # to be perform on detail view (not list view)
+    @action(detail=True,  # to be perform on detail view (not list view)
             methods=['POST'],
             authentication_classes=[BasicAuthentication],
-            paermission_classes=[IsAuthenticated])
+            permission_classes=[IsAuthenticated])
     def enroll(self, request, *args, **kwargs):
         course = self.get_object()
         course.students.add(request.user)
         return Response({'enrolled': True})
+
+    @action(detail=True,
+            methods=['GET'],
+            serializer_class=CourseWithContentsSerializer,
+            permission_classes=[IsAuthenticated, IsEnrolled])
+    def contents(self, request, *args, **kwargs) -> Course:
+        return self.retrieve(request, *args, **kwargs)
