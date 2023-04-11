@@ -57,17 +57,25 @@ INSTALLED_APPS = [
 
 
 ]
-
+# middleware is invoked in the given order during request phase
+# and in reverse order during response phase!!!
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',  # add debug toolbar
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',  # per site cache in the response phase is invoked after the CommonMiddleware
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',  # per site cache (needs data from Csrf in the response phase)
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# per site cache middleware will cache all views including the admin dashboard (not good)
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 60*15  # fifteen minutes
+CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'  # project prefix in case many projects use the same backend
 
 ROOT_URLCONF = 'config.urls'
 
