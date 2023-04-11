@@ -10,7 +10,7 @@ router.register('courses', views.CourseViewSet)  # generates urls for this Views
 urlpatterns = [
     path('subjects/', views.SubjectListView.as_view(), name='subject_list'),
     path('subjects/<pk>/', views.SubjectDetailView.as_view(), name='subject_detail'),
-    path('courses/<pk>/enroll/', views.CourseEnrollView.as_view(), name='course_enroll'),
+    # path('courses/<pk>/enroll/', views.CourseEnrollView.as_view(), name='course_enroll'), # replaced by custom action on the ViewSet
     path('', include(router.urls))
 
 ]
