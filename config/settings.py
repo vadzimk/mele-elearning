@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 3d party
     'embed_video',
     'debug_toolbar',
+    'chat',
 
     # default
     'django.contrib.admin',
