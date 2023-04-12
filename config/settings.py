@@ -34,6 +34,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',  # need for channels
+    'channels',  # intercepts all
+
+
     # local
     'courses',
     # !important
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
     'embed_video',
     'debug_toolbar',
     'chat',
+
 
     # default
     'django.contrib.admin',
@@ -103,7 +108,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application' # replaced by asgi
+
+ASGI_APPLICATION = 'config.asgi.application'  # for the channels 3d party app
+
 
 
 # Database
@@ -183,3 +191,4 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',  # read only access for anonymous users
     ]
 }
+
