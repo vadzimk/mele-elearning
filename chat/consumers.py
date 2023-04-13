@@ -2,13 +2,14 @@ import json
 
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-
+from django.utils import timezone
 
 class ChatConsumer(WebsocketConsumer):
     """ accepts any websocket connection and
     echoes back to the client every message (no broadcasting) """
     def connect(self):
         """ invoked when new connection is received """
+        self.user = self.scope['user']
         self.id = self.scope['url_route']['kwargs']['course_id']
         self.room_group_name = f'chat_{self.id}'
         # join room group
@@ -36,6 +37,8 @@ class ChatConsumer(WebsocketConsumer):
             {
                 'type': 'chat_message',  # corresponds to the name of the method that is invoked on consumers that receive the event
                 'message': message,
+                'user': self.user.username,
+                'datetime': timezone.now().isoformat(),
             }
         )
 
