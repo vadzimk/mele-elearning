@@ -8,7 +8,8 @@
         <input id="chat-message-submit" type="submit" value="Send">
     </div>
 {% endblock %}
-{% block include_js %}
-{% endblock %}
+
 {% block domready %}
+    const url = 'ws://' + window.location.host + '/ws/chat/room/' + {{ course.id }} + '/';
+    const chatSocket = new WebSocket(url);
 {% endblock %}
