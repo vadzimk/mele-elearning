@@ -15,6 +15,7 @@ django-redisboard = "*"
 attrs = "*"
 djangorestframework = "*"
 channels = {extras = ["daphne"], version = "*"}
+channels-redis = "*"
 
 [dev-packages]
 
