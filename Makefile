@@ -1,5 +1,5 @@
 server.dev:
-	./manage.py runserver
+	./manage.py runserver --settings=config.settings.local
 
 server.dev.plus:
 	./manage.py runserver_plus --cert-file cert.crt
