@@ -1,6 +1,7 @@
 from .base import *
 
 DEBUG = False
+# DEBUG = True
 
 # when view raises an exception, log will be sent to emails listed in ADMINS via email
 ADMINS = [
@@ -8,7 +9,7 @@ ADMINS = [
 ]
 
 # hosts that are allowed to serve this project
-ALLOWED_HOSTS = ['localhost'] # ip address of the docker container or localhost
+ALLOWED_HOSTS = ['*'] # ip address of the website or localhost
 
 DATABASES = {
     'default': {

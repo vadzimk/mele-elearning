@@ -1,13 +1,6 @@
 version: "3.5"
 
 services:
-#  replaced by cache-redis
-#  cache-memcached:
-#    image: memcached
-#    container_name: memcached-django-elearning
-#    ports:
-#      - "11211:11211"
-#    command: ["-m", "64m"]
 
   cache-redis:
     image: redis
@@ -17,16 +10,20 @@ services:
     volumes:
       - ./data/cache/:/data
 
+#      https://www.jujens.eu/posts/en/2017/Feb/15/docker-unix-socket/
   webservice:
-    build: .
+    build:
+      context: .
     restart: unless-stopped
     container_name: webservice-django-elearning
     volumes:
-      - ./media/:/code/media/
+      - ./:/code/  # shares media files and unix socket with the host
     depends_on:
       - db
       - cache-redis
-    command: ["./wait-for-it.sh", "db:5432", "--" , "uwsgi" , "--ini", "/code/config/uwsgi.ini",]
+    env_file:
+      - .env.prod
+    command: ["./wait-for-it.sh", "db:5432", "--" , "uwsgi" , "--ini", "/code/config/uwsgi/uwsgi.ini",]
 
 
   db:
@@ -36,6 +33,18 @@ services:
     volumes:
       - ./data/db/:/var/lib/postgresql/data
     env_file:
-      - .env
+      - .env.prod
     ports:
       - "5433:5432"
+
+
+  nginx:
+    image: nginx
+    restart: unless-stopped
+    container_name: nginx-django-elearning
+    volumes:
+      - ./nginx/:/etc/nginx/templates/
+      - ./:/code # to access static files and the socket
+    ports:
+      - "80:80"
+

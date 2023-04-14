@@ -1,5 +1,5 @@
 .idea
-.env
+.env*
 media/
 db.sqlite3
 data/
