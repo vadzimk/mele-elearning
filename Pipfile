@@ -16,6 +16,8 @@ attrs = "*"
 djangorestframework = "*"
 channels = {extras = ["daphne"], version = "*"}
 channels-redis = "*"
+psycopg2-binary = "*"
+uwsgi = "*"
 
 [dev-packages]
 

@@ -1,0 +1,43 @@
+version: "3.5"
+
+services:
+#  replaced by cache-redis
+#  cache-memcached:
+#    image: memcached
+#    container_name: memcached-django-elearning
+#    ports:
+#      - "11211:11211"
+#    command: ["-m", "64m"]
+
+  cache-redis:
+    image: redis
+    container_name: redis-django-elearning
+    ports:
+      - "6380:6379" # host:guest
+    volumes:
+      - ./data/cache/:/data
+
+  webservice:
+    build: .
+    restart: unless-stopped
+    container_name: webservice-django-elearning
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./media/:/code/media/
+    depends_on:
+      - db
+      - cache-redis
+    command: ["./wait-for-it.sh", "db:5432", "--" ,"python", "/code/manage.py", "runserver", "0.0.0.0:8000"]
+
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    container_name: db-django-elearning
+    volumes:
+      - ./data/db/:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"

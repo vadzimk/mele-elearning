@@ -10,11 +10,22 @@ migraton.makemigrations:
 migration.migrate:
 	./manage.py migrate
 
-compose.up:
+# ---------
+compose.dev.up:
 	docker-compose -f docker-compose.dev.yml up --build
 
-compose.down:
+compose.dev.down:
 	docker-compose -f docker-compose.dev.yml down
+
+# ---------
+
+compose.prod.up:
+	docker-compose -f docker-compose.prod.yml up --build
+
+compose.prod.down:
+	docker-compose -f docker-compose.prod.yml down
+# ---------
+
 
 dump_file_name = "mysite_data.json"
 

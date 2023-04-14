@@ -1,12 +1,13 @@
 version: "3.5"
 
 services:
-  cache-memcached:
-    image: memcached
-    container_name: memcached-django-elearning
-    ports:
-      - "11211:11211"
-    command: ["-m", "64m"]
+#  replaced by cache-redis
+#  cache-memcached:
+#    image: memcached
+#    container_name: memcached-django-elearning
+#    ports:
+#      - "11211:11211"
+#    command: ["-m", "64m"]
 
   cache-redis:
     image: redis
