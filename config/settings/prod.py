@@ -1,4 +1,8 @@
+import os
+
 from .base import *
+load_dotenv('.env.prod')
+
 
 DEBUG = False
 # DEBUG = True
