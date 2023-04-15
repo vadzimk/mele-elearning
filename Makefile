@@ -77,3 +77,7 @@ manage.fixture.dumpdata:  # dumps data from database into json
 
 manage.fixture.load:  # loads data from json file into database
 	./manage.py loaddata ${output_dir}/${output_filename}
+
+
+manage.check.prod:
+	./manage.py check --deploy --settings=config.settings.prod

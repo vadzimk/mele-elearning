@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block domready %}
+{#    for SSL use wss:// instead of ws://  #}
     const url = 'ws://' + window.location.host + '/ws/chat/room/' + {{ course.id }} + '/';
     const chatSocket = new WebSocket(url);
     chatSocket.onmessage = function(event){

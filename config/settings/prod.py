@@ -28,4 +28,8 @@ DATABASES = {
 
 # update CACHES and CHANNEL_LAYERS is not necessary bc they were specified in env
 
+# # will work only with https
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True # to redirect from http to https
 

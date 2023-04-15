@@ -23,7 +23,24 @@ services:
       - cache-redis
     env_file:
       - .env.prod
+    entrypoint: /code/entrypoint.sh
     command: ["./wait-for-it.sh", "db:5432", "--" , "uwsgi" , "--ini", "/code/config/uwsgi/uwsgi.ini",]
+
+# ASGI server for channels app
+#  https://github.com/django/daphne
+  daphne:
+    build:
+      context: .
+    restart: unless-stopped
+    volumes:
+      - ./:/code/ # shares unix socket with the host
+    env_file:
+      - .env.prod
+    depends_on:
+      - db
+      - cache-redis
+#    --u defines the location of the socket
+    command: ["./wait-for-it.sh", "db:5432", "--" , "daphne" , "-u", "/code/config/daphne.sock", "config.asgi:application"]
 
 
   db:

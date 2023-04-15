@@ -15,7 +15,6 @@ COPY ./Pipfile* ./
 RUN pipenv install --deploy --system
 
 COPY . .
-RUN chmod +x wait-for-it.sh entrypoint.sh
 ENV DJANGO_SETTINGS_MODULE=config.settings.prod
 
-ENTRYPOINT ["/code/entrypoint.sh"]
+
