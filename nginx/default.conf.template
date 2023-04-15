@@ -16,4 +16,12 @@ upstream uwsgi_app {
             uwsgi_pass uwsgi_app;
         }
 
+        location /static/ {
+            alias /code/static/;
+        }
+
+        location /media/ {
+            alias /code/media/;
+        }
+
     }
